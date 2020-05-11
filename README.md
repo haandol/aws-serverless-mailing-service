@@ -1,0 +1,1 @@
+# aws-mailing-service
