@@ -40,7 +40,7 @@ export class LambdaStack extends cdk.Stack {
     const fn = new lambda.Function(this, `DdbStreamFunction${ns}`, {
       runtime: lambda.Runtime.PYTHON_3_7,
       code: lambda.Code.fromAsset(path.resolve(__dirname, '.././functions')),
-      functionName: `ddbStreamFunction`,
+      description: `ddbStreamFunction`,
       handler: 'ddb-stream.handler',
       role,
       memorySize: 512,
@@ -72,7 +72,7 @@ export class LambdaStack extends cdk.Stack {
     const fn = new lambda.Function(this, `MailSenderFunction${ns}`, {
       runtime: lambda.Runtime.PYTHON_3_7,
       code: lambda.Code.fromAsset(path.resolve(__dirname, '.././functions')),
-      functionName: `mailSenderFunction`,
+      description: `mailSenderFunction`,
       handler: 'mail-sender.handler',
       role,
       timeout: cdk.Duration.seconds(30),
@@ -97,7 +97,7 @@ export class LambdaStack extends cdk.Stack {
     const fn = new lambda.Function(this, `DlqFunction${ns}`, {
       runtime: lambda.Runtime.PYTHON_3_7,
       code: lambda.Code.fromAsset(path.resolve(__dirname, '.././functions')),
-      functionName: `dlqFunction`,
+      description: `dlqFunction`,
       handler: 'dlq.handler',
       role,
       timeout: cdk.Duration.seconds(30),
