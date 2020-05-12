@@ -2,6 +2,8 @@
 
 This repository is for tutorial of Custom Mailing Service on AWS
 
+<img src="img/mailing.png" />
+
 **Running this repository may cost you to provision AWS resources**
 
 # Prerequisites
