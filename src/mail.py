@@ -4,8 +4,8 @@ import logging
 from datetime import date, datetime
 from botocore.exceptions import ClientError
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('mail')
+logger.basicConfig(level=logging.INFO)
 
 DDB_NAME = 'mailList'
 

@@ -3,8 +3,8 @@ import boto3
 import logging
 from botocore.exceptions import ClientError
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('sender')
+logger = logging.getLogger('mail-sender')
+logger.basicConfig(level=logging.INFO)
 
 sqs = boto3.client('sqs')
 ses = boto3.client('ses', region_name='us-east-1')
