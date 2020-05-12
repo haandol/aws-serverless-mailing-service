@@ -63,7 +63,6 @@ def handler(event, context):
             )
         except ClientError as e:
             logging.error(e.response['Error']['Message'])
-            raise e
         else:
             logging.info("Email sent! Message ID:"),
             logging.info(response['MessageId'])
