@@ -4,6 +4,7 @@ import logging
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger('mail-sender')
+logger.setLevel(logging.INFO)
 
 sqs = boto3.client('sqs')
 ses = boto3.client('ses', region_name='us-east-1')
@@ -34,7 +35,6 @@ BODY_TEXT = ("For {} {} Test\r\n"
 
 
 def handler(event, context):
-    logger.setLevel(logging.INFO)
     failed_records = []
     for record in event['Records']:
         logging.info(record)
