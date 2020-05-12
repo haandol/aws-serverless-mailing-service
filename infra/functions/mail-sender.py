@@ -35,6 +35,7 @@ BODY_TEXT = ("For {} {} Test\r\n"
 
 
 def handler(event, context):
+    failed_records = []
     for record in event['Records']:
         logging.info(record)
         email = record['body']
@@ -66,6 +67,7 @@ def handler(event, context):
             )
         except ClientError as e:
             logging.error(e.response['Error']['Message'])
+            failed_records.append(record)
         else:
             logging.info("Email sent! Message ID:"),
             logging.info(response['MessageId'])
@@ -73,3 +75,7 @@ def handler(event, context):
                 QueueUrl=QUEUE_URL,
                 ReceiptHandle=record['receiptHandle'],
             )
+
+    if failed_records:
+        logger.error(failed_records)
+        raise RuntimeError(f'{len(failed_records)} of records are failed to send.')
