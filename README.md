@@ -10,6 +10,7 @@ This repository is for tutorial of Custom Mailing Service on AWS
 
 - awscli
 - Nodejs 10.20+
+- Python 3.7+
 - AWS Account and Locally configured AWS credential
 
 # Installation
