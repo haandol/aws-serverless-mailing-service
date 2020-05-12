@@ -12,6 +12,7 @@ def handler(event, context):
         if 'INSERT' != record['eventName']:
             continue
         
+        print(record)
         new_id = record['dynamodb']['NewImage']['id']['S']
         email = record['dynamodb']['NewImage']['email']['S']
         entries.append({
@@ -35,4 +36,3 @@ def handler(event, context):
             QueueUrl=QUEUE_URL,
             Entries=entries
         )
-        print(response)

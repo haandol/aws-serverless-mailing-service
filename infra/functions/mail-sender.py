@@ -32,6 +32,7 @@ BODY_TEXT = ("Amazon SES Test (Python)\r\n"
 
 def handler(event, context):
     for record in event['Records']:
+        print(record)
         email = record['body']
         try:
             response = ses.send_email(
