@@ -1,7 +1,7 @@
 import os
 import boto3
 import logging
-from datetime import date
+from datetime import date, datetime
 from botocore.exceptions import ClientError
 
 logging.basicConfig(level=logging.INFO)
@@ -22,7 +22,7 @@ def handler(records):
 
 if __name__ == '__main__':
     today = date.today().strftime('%Y%m%d')
-    logger.info(today)
+    logger.info(datetime.now())
     records = [
         {
             'id': today + 'dongkly',
