@@ -8,6 +8,8 @@ export class SqsStack extends cdk.Stack {
     super(scope, id, props);
 
     this.queue = new sqs.Queue(this, `MailingQueue`);
-    this.dlq = new sqs.Queue(this, `DeadLetterQueue`);
+    this.dlq = new sqs.Queue(this, `DeadLetterQueue`, {
+      retentionPeriod: cdk.Duration.days(1),
+    });
   }
 }

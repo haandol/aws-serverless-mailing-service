@@ -1,9 +1,10 @@
 import * as path from 'path';
 import * as cdk from '@aws-cdk/core';
 import * as iam from '@aws-cdk/aws-iam';
+import * as sqs from '@aws-cdk/aws-sqs';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
-import * as sqs from '@aws-cdk/aws-sqs';
+import { DynamoEventSource, SqsEventSource } from '@aws-cdk/aws-lambda-event-sources'
 
 interface Props extends cdk.StackProps {
   queue: sqs.Queue;
@@ -50,13 +51,12 @@ export class LambdaStack extends cdk.Stack {
         QUEUE_URL: props.queue.queueUrl,
       },
     });
-    fn.addEventSourceMapping(`DdbStreamMapping${ns}`, {
-      eventSourceArn: props.table.tableStreamArn!,
+    fn.addEventSource(new DynamoEventSource(props.table, {
       batchSize: 100,
       startingPosition: lambda.StartingPosition.LATEST,
       maxBatchingWindow: cdk.Duration.seconds(5),
       parallelizationFactor: 10,
-    });
+    }));
     return fn;
   }
 
@@ -82,10 +82,7 @@ export class LambdaStack extends cdk.Stack {
         QUEUE_URL: props.queue.queueUrl,
       },
     });
-    fn.addEventSourceMapping(`MailSenderMapping${ns}`, {
-      eventSourceArn: props.queue.queueArn!,
-      batchSize: 10,
-    });
+    fn.addEventSource(new SqsEventSource(props.queue, { batchSize: 10 }));
     return fn;
   }
 
@@ -108,10 +105,7 @@ export class LambdaStack extends cdk.Stack {
         QUEUE_URL: props.dlq.queueUrl,
       },
     });
-    fn.addEventSourceMapping(`DlqMapping${ns}`, {
-      eventSourceArn: props.dlq.queueArn!,
-      batchSize: 10,
-    });
+    fn.addEventSource(new SqsEventSource(props.dlq, { batchSize: 10 }));
     return fn;
   }
 
