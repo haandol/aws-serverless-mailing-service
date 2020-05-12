@@ -2,8 +2,8 @@ import os
 import boto3
 import logging
 
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('ddb-stream')
-logger.basicConfig(level=logging.INFO)
 
 sqs = boto3.client('sqs')
 
