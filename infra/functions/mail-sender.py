@@ -37,7 +37,7 @@ BODY_TEXT = ("For {} {} Test\r\n"
 def handler(event, context):
     failed_records = []
     for record in event['Records']:
-        logging.info(record)
+        logger.info(record)
         email = record['body']
         msg_attr = record['messageAttributes']
         first_name = msg_attr['FirstName']['stringValue']
@@ -66,11 +66,11 @@ def handler(event, context):
                 Source=SENDER,
             )
         except ClientError as e:
-            logging.error(e.response['Error']['Message'])
+            logger.error(e.response['Error']['Message'])
             failed_records.append(record)
         else:
-            logging.info("Email sent! Message ID:"),
-            logging.info(response['MessageId'])
+            logger.info("Email sent! Message ID:"),
+            logger.info(response['MessageId'])
             sqs.delete_message(
                 QueueUrl=QUEUE_URL,
                 ReceiptHandle=record['receiptHandle'],
