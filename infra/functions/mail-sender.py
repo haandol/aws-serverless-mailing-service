@@ -15,7 +15,7 @@ CHARSET = 'UTF-8'
 BODY_HTML = '''<html>
 <head></head>
 <body>
-  <h1>Amazon SES Test (SDK for Python)</h1>
+  <h1>For {} {} Test</h1>
   <p>This email was sent with
     <a href='https://aws.amazon.com/ses/'>Amazon SES</a> using the
     <a href='https://aws.amazon.com/sdk-for-python/'>
@@ -28,7 +28,7 @@ SENDER = "DongGyun Lee <dongkyl@amazon.com>"
 
 SUBJECT = "Amazon SES Test (SDK for Python)"
 
-BODY_TEXT = ("Amazon SES Test (Python)\r\n"
+BODY_TEXT = ("For {} {} Test\r\n"
              "This email was sent with Amazon SES using the "
              "AWS SDK for Python (Boto)."
              )
@@ -38,6 +38,9 @@ def handler(event, context):
     for record in event['Records']:
         logging.info(record)
         email = record['body']
+        msg_attr = record['messageAttributes']
+        first_name = msg_attr['FirstName']['stringValue']
+        last_name = msg_attr['LastName']['stringValue']
         try:
             response = ses.send_email(
                 Destination={
@@ -47,11 +50,11 @@ def handler(event, context):
                     'Body': {
                         'Html': {
                             'Charset': CHARSET,
-                            'Data': BODY_HTML,
+                            'Data': BODY_HTML.format(first_name, last_name),
                         },
                         'Text': {
                             'Charset': CHARSET,
-                            'Data': BODY_TEXT,
+                            'Data': BODY_TEXT.format(first_name, last_name),
                         },
                     },
                     'Subject': {

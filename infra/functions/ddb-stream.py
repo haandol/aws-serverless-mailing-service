@@ -19,16 +19,18 @@ def handler(event, context):
         logger.info(record)
         new_id = record['dynamodb']['NewImage']['id']['S']
         email = record['dynamodb']['NewImage']['email']['S']
+        first_name = record['dynamodb']['NewImage']['first_name']['S']
+        last_name = record['dynamodb']['NewImage']['last_name']['S']
         entries.append({
             'Id': new_id,
             'MessageBody': email,
             'MessageAttributes': {
                 'FirstName': {
-                    'StringValue': 'DongGyun',
+                    'StringValue': first_name,
                     'DataType': 'String',
                 },
                 'LastName': {
-                    'StringValue': 'Lee',
+                    'StringValue': last_name,
                     'DataType': 'String',
                 },
             },
