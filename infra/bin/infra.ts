@@ -5,11 +5,11 @@ import { DynamodbStack } from '../lib/dynamodb-stack';
 import { LambdaStack } from '../lib/lambda-stack';
 import { SqsStack } from '../lib/sqs-stack';
 
-const ns = 'Beta';
+const ns = 'Alpha';
 const app = new cdk.App({
   context: {
     ns,
-    tableName: 'mailList',
+    tableName: 'mailbox',
   },
 });
 

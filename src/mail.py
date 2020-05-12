@@ -1,13 +1,13 @@
 import os
 import boto3
 import logging
-from datetime import date, datetime
+from datetime import datetime
 from botocore.exceptions import ClientError
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('mail')
+logger.setLevel(logging.INFO)
 
-DDB_NAME = 'mailList'
+DDB_NAME = 'mailbox'
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table(DDB_NAME)
@@ -21,17 +21,16 @@ def handler(records):
 
 
 if __name__ == '__main__':
-    today = date.today().strftime('%Y%m%d')
-    logger.info(datetime.now())
+    now = datetime.now().strftime('%Y%m%d%H%M%S')
     records = [
         {
-            'id': today + 'dongkly',
+            'id': now + 'dongkly',
             'email': 'dongkyl@amazon.com',
             'first_name': 'DongGyun',
             'last_name': 'Lee',
         },
         {
-            'id': today + 'ldg55d',
+            'id': now + 'ldg55d',
             'email': 'ldg55d@gmail.com',
             'first_name': 'Vincent',
             'last_name': 'Lee',

@@ -34,3 +34,19 @@ Deploy CDK Stacks on AWS
 ```bash
 $ cdk deploy "*" --require-approval never
 ```
+
+# Usage
+
+1. Verify your email on [**AWS SES Console**](https://console.aws.amazon.com/ses/home?region=us-east-1#verified-senders-email:)
+
+2. Modify *SENDER* varaible at [**mail-sender.py**](infra/functions/mail-sender.py) to your verified email.
+
+3. Modify *records* variable at [**mail.py**](src/mail.py) to email address whatever you want to send.
+
+**If you are not yet request increasing SES limitation, you can only send email to verified email.**
+
+4. Run *mail.py*
+
+```bash
+$ python src/mail.py 
+```
