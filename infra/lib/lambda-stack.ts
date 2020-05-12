@@ -55,7 +55,6 @@ export class LambdaStack extends cdk.Stack {
       batchSize: 100,
       startingPosition: lambda.StartingPosition.LATEST,
       maxBatchingWindow: cdk.Duration.seconds(5),
-      parallelizationFactor: 10,
     }));
     return fn;
   }
