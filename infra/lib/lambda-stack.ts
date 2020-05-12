@@ -53,8 +53,10 @@ export class LambdaStack extends cdk.Stack {
     });
     fn.addEventSource(new DynamoEventSource(props.table, {
       batchSize: 100,
+      retryAttempts: 10,
       startingPosition: lambda.StartingPosition.LATEST,
       maxBatchingWindow: cdk.Duration.seconds(5),
+      maxRecordAge: cdk.Duration.minutes(60),
     }));
     return fn;
   }
