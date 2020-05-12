@@ -22,6 +22,7 @@ def handler(records):
 
 if __name__ == '__main__':
     today = date.today().strftime('%Y%m%d')
+    logger.info(today)
     records = [
         {
             'id': today + 'dongkly',
