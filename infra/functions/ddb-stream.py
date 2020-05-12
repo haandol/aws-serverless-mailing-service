@@ -1,5 +1,9 @@
 import os
 import boto3
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('ddb-stream')
 
 sqs = boto3.client('sqs')
 
@@ -12,7 +16,7 @@ def handler(event, context):
         if 'INSERT' != record['eventName']:
             continue
         
-        print(record)
+        logger.info(record)
         new_id = record['dynamodb']['NewImage']['id']['S']
         email = record['dynamodb']['NewImage']['email']['S']
         entries.append({
@@ -31,7 +35,7 @@ def handler(event, context):
         })
 
     if entries:
-        print(f'send {len(entries)} messages to SQS...')
+        logger.info(f'send {len(entries)} messages to SQS...')
         response = sqs.send_message_batch(
             QueueUrl=QUEUE_URL,
             Entries=entries

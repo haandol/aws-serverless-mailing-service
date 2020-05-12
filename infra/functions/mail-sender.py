@@ -1,6 +1,10 @@
 import os
 import boto3
+import logging
 from botocore.exceptions import ClientError
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('sender')
 
 sqs = boto3.client('sqs')
 ses = boto3.client('ses', region_name='us-east-1')
@@ -32,7 +36,7 @@ BODY_TEXT = ("Amazon SES Test (Python)\r\n"
 
 def handler(event, context):
     for record in event['Records']:
-        print(record)
+        logging.info(record)
         email = record['body']
         try:
             response = ses.send_email(
@@ -58,11 +62,11 @@ def handler(event, context):
                 Source=SENDER,
             )
         except ClientError as e:
-            print(e.response['Error']['Message'])
+            logging.error(e.response['Error']['Message'])
             raise e
         else:
-            print("Email sent! Message ID:"),
-            print(response['MessageId'])
+            logging.info("Email sent! Message ID:"),
+            logging.info(response['MessageId'])
             sqs.delete_message(
                 QueueUrl=QUEUE_URL,
                 ReceiptHandle=record['receiptHandle'],
