@@ -1,6 +1,6 @@
-# Mailing Service on AWS
+# Serverless Mailing Service on AWS
 
-This repository is for tutorial of Custom Mailing Service on AWS
+This repository is for tutorial of Serverless Mailing Service on AWS
 
 <img src="img/mailing.png" />
 
