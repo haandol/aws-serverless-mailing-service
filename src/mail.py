@@ -26,14 +26,23 @@ if __name__ == '__main__':
         {
             'id': now + 'dongkly',
             'email': 'dongkyl@amazon.com',
+            'event_type': 'mail',
             'first_name': 'DongGyun',
             'last_name': 'Lee',
         },
         {
             'id': now + 'ldg55d',
             'email': 'ldg55d@gmail.com',
+            'event_type': 'mail',
             'first_name': 'Vincent',
             'last_name': 'Lee',
+        },
+        {
+            'id': now + 'kwonyul',
+            'email': 'kwonyul@amazon.com',
+            'event_type': 'mail',
+            'first_name': 'KwonYul',
+            'last_name': 'Choi',
         },
     ]
     handler(records)
