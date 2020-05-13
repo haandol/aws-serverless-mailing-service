@@ -18,7 +18,7 @@ const dynamodbStack = new DynamodbStack(app, `DynamodbStack${ns}`);
 const sqsStack = new SqsStack(app, `SqsStack${ns}`);
 
 const lambdaStack = new LambdaStack(app, `LambdaStack${ns}`, {
-  queue: sqsStack.queue,
+  mailQueue: sqsStack.mailQueue,
   dlq: sqsStack.dlq,
   table: dynamodbStack.table,
 });

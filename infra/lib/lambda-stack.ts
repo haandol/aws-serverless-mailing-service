@@ -7,7 +7,7 @@ import * as dynamodb from '@aws-cdk/aws-dynamodb';
 import { DynamoEventSource, SqsEventSource } from '@aws-cdk/aws-lambda-event-sources'
 
 interface Props extends cdk.StackProps {
-  queue: sqs.Queue;
+  mailQueue: sqs.Queue;
   dlq: sqs.Queue;
   table: dynamodb.Table;
 }
@@ -48,7 +48,7 @@ export class LambdaStack extends cdk.Stack {
       deadLetterQueue: props.dlq,
       deadLetterQueueEnabled: true,
       environment: {
-        QUEUE_URL: props.queue.queueUrl,
+        MAIL_QUEUE_URL: props.mailQueue.queueUrl,
       },
     });
     fn.addEventSource(new DynamoEventSource(props.table, {
@@ -80,10 +80,10 @@ export class LambdaStack extends cdk.Stack {
       deadLetterQueue: props.dlq,
       deadLetterQueueEnabled: true,
       environment: {
-        QUEUE_URL: props.queue.queueUrl,
+        MAIL_QUEUE_URL: props.mailQueue.queueUrl,
       },
     });
-    fn.addEventSource(new SqsEventSource(props.queue, { batchSize: 10 }));
+    fn.addEventSource(new SqsEventSource(props.mailQueue, { batchSize: 10 }));
     return fn;
   }
 

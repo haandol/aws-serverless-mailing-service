@@ -15,6 +15,10 @@ export class DynamodbStack extends cdk.Stack {
         name: 'id',
         type: dynamodb.AttributeType.STRING
       },
+      sortKey: {
+        name: 'event_type',
+        type: dynamodb.AttributeType.STRING,
+      },
       stream: dynamodb.StreamViewType.NEW_IMAGE,
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
