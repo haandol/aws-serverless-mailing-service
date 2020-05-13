@@ -57,3 +57,11 @@ $ cdk deploy "*" --require-approval never
 ```bash
 $ python src/mail.py 
 ```
+
+# Cleanup Resource
+
+Remove all resources used in this tutorial.
+
+```bash
+$ cdk destroy "*"
+```
