@@ -9,7 +9,7 @@ logger.setLevel(logging.INFO)
 sqs = boto3.client('sqs')
 ses = boto3.client('ses', region_name='us-east-1')
 
-MAIL_QUEUE_URL = os.environ['MAIL_QUEUE_URL']
+QUEUE_URL = os.environ['QUEUE_URL']
 
 CHARSET = 'UTF-8'
 BODY_HTML = '''<html>
@@ -72,7 +72,7 @@ def handler(event, context):
             logger.info("Email sent! Message ID:"),
             logger.info(response['MessageId'])
             sqs.delete_message(
-                QueueUrl=MAIL_QUEUE_URL,
+                QueueUrl=QUEUE_URL,
                 ReceiptHandle=record['receiptHandle'],
             )
 

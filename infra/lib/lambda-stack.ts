@@ -80,7 +80,7 @@ export class LambdaStack extends cdk.Stack {
       deadLetterQueue: props.dlq,
       deadLetterQueueEnabled: true,
       environment: {
-        MAIL_QUEUE_URL: props.mailQueue.queueUrl,
+        QUEUE_URL: props.mailQueue.queueUrl,
       },
     });
     fn.addEventSource(new SqsEventSource(props.mailQueue, { batchSize: 10 }));
