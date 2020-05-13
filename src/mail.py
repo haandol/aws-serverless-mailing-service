@@ -40,7 +40,7 @@ if __name__ == '__main__':
         {
             'id': now + 'kwonyul',
             'email': 'kwonyul@amazon.com',
-            'event_type': 'mail',
+            'event_type': 'sns',
             'first_name': 'KwonYul',
             'last_name': 'Choi',
         },

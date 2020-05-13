@@ -54,6 +54,7 @@ def handler(event, context):
             QueueUrl=MAIL_QUEUE_URL,
             Entries=mail_entries
         )
+        logger.info(response)
 
     if sns_entries:
         logger.info(f'send {len(sns_entries)} messages to SNS...')
