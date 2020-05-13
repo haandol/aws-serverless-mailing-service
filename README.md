@@ -2,9 +2,11 @@
 
 This repository is for tutorial of Serverless Mailing Service on AWS
 
+Running this tutorial will provision below architecture on your AWS Account
+
 <img src="img/mailing-Overview.png" />
 
-and the code is ready to extend to below architecture,
+and the give code is ready to extend to below architecture,
 
 <img src="img/mailing-Extent.png" />
 
