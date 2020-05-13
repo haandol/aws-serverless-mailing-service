@@ -4,6 +4,10 @@ This repository is for tutorial of Serverless Mailing Service on AWS
 
 <img src="img/mailing.png" />
 
+and the code is ready to extend to below architecture,
+
+<img src="img/mailing-Extent.png" />
+
 **Running this repository may cost you to provision AWS resources**
 
 # Prerequisites
