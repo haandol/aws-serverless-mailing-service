@@ -42,7 +42,7 @@ $ cdk deploy "*" --require-approval never
 
 # Usage
 
-1. Verify your email on [**AWS SES Console**](https://console.aws.amazon.com/ses/home?region=us-east-1#verified-senders-email:)
+1. Verify your email on [**AWS SES Console**](https://console.aws.amazon.com/ses/home?region=ap-northeast-2#verified-senders-email:)
 
 2. Modify *SENDER* varaible at [**mail-sender.py**](infra/functions/mail-sender.py) to your verified email.
 

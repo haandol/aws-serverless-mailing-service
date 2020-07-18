@@ -7,7 +7,7 @@ logger = logging.getLogger('mail-sender')
 logger.setLevel(logging.INFO)
 
 sqs = boto3.client('sqs')
-ses = boto3.client('ses', region_name='us-east-1')
+ses = boto3.client('ses')
 
 QUEUE_URL = os.environ['QUEUE_URL']
 
