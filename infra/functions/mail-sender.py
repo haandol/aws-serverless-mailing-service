@@ -24,14 +24,13 @@ BODY_HTML = '''<html>
 </html>
 '''
 
-SENDER = "DongGyun Lee <dongkyl@amazon.com>"
+SENDER = 'DongGyun Lee <dongkyl@amazon.com>'
 
-SUBJECT = "Amazon SES Test (SDK for Python)"
+SUBJECT = 'Amazon SES Test (SDK for Python)'
 
-BODY_TEXT = ("For {} {} Test\r\n"
-             "This email was sent with Amazon SES using the "
-             "AWS SDK for Python (Boto)."
-             )
+BODY_TEXT = '''For {} {} Test\r\n
+This email was sent with Amazon SES using the 
+AWS SDK for Python (Boto).'''
 
 
 def handler(event, context):
@@ -69,7 +68,7 @@ def handler(event, context):
             logger.error(e.response['Error']['Message'])
             failed_records.append(record)
         else:
-            logger.info("Email sent! Message ID:"),
+            logger.info('Email sent! Message ID:'),
             logger.info(response['MessageId'])
             sqs.delete_message(
                 QueueUrl=QUEUE_URL,

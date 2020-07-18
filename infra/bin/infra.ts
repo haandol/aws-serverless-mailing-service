@@ -13,11 +13,11 @@ const app = new cdk.App({
   },
 });
 
-const dynamodbStack = new DynamodbStack(app, `DynamodbStack${ns}`);
+const dynamodbStack = new DynamodbStack(app, `${ns}DynamodbStack`);
 
-const sqsStack = new SqsStack(app, `SqsStack${ns}`);
+const sqsStack = new SqsStack(app, `${ns}SqsStack`);
 
-const lambdaStack = new LambdaStack(app, `LambdaStack${ns}`, {
+const lambdaStack = new LambdaStack(app, `${ns}LambdaStack`, {
   mailQueue: sqsStack.mailQueue,
   dlq: sqsStack.dlq,
   table: dynamodbStack.table,

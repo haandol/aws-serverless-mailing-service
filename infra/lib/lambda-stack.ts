@@ -28,7 +28,7 @@ export class LambdaStack extends cdk.Stack {
   }
 
   getDdbStreamFunction(ns: string, props: Props): lambda.Function {
-    const role = new iam.Role(this, `DdbStreamFnExecutionRole${ns}`, {
+    const role = new iam.Role(this, `${ns}DdbStreamFnExecutionRole`, {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       managedPolicies: [
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' },
@@ -37,7 +37,7 @@ export class LambdaStack extends cdk.Stack {
         { managedPolicyArn: 'arn:aws:iam::aws:policy/AmazonS3FullAccess' },
       ]
     });
-    const fn = new lambda.Function(this, `DdbStreamFunction${ns}`, {
+    const fn = new lambda.Function(this, `${ns}DdbStreamFunction`, {
       runtime: lambda.Runtime.PYTHON_3_7,
       code: lambda.Code.fromAsset(path.resolve(__dirname, '.././functions')),
       description: `ddbStreamFunction`,
@@ -49,6 +49,9 @@ export class LambdaStack extends cdk.Stack {
       deadLetterQueueEnabled: true,
       environment: {
         MAIL_QUEUE_URL: props.mailQueue.queueUrl,
+      },
+      currentVersionOptions: {
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
       },
     });
     fn.addEventSource(new DynamoEventSource(props.table, {
@@ -62,7 +65,7 @@ export class LambdaStack extends cdk.Stack {
   }
 
   getMailSenderFunction(ns: string, props: Props): lambda.Function {
-    const role = new iam.Role(this, `SenderFnExecutionRole${ns}`, {
+    const role = new iam.Role(this, `${ns}SenderFnExecutionRole`, {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       managedPolicies: [
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' },
@@ -70,7 +73,7 @@ export class LambdaStack extends cdk.Stack {
         { managedPolicyArn: 'arn:aws:iam::aws:policy/AmazonSESFullAccess' },
       ]
     });
-    const fn = new lambda.Function(this, `MailSenderFunction${ns}`, {
+    const fn = new lambda.Function(this, `${ns}MailSenderFunction`, {
       runtime: lambda.Runtime.PYTHON_3_7,
       code: lambda.Code.fromAsset(path.resolve(__dirname, '.././functions')),
       description: `mailSenderFunction`,
@@ -82,20 +85,23 @@ export class LambdaStack extends cdk.Stack {
       environment: {
         QUEUE_URL: props.mailQueue.queueUrl,
       },
+      currentVersionOptions: {
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
+      },
     });
     fn.addEventSource(new SqsEventSource(props.mailQueue, { batchSize: 10 }));
     return fn;
   }
 
   getDlqFunction(ns: string, props: Props): lambda.Function {
-    const role = new iam.Role(this, `DlqFnExecutionRole${ns}`, {
+    const role = new iam.Role(this, `${ns}DlqFnExecutionRole`, {
       assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
       managedPolicies: [
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole' },
         { managedPolicyArn: 'arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole' },
       ],
     });
-    const fn = new lambda.Function(this, `DlqFunction${ns}`, {
+    const fn = new lambda.Function(this, `${ns}DlqFunction`, {
       runtime: lambda.Runtime.PYTHON_3_7,
       code: lambda.Code.fromAsset(path.resolve(__dirname, '.././functions')),
       description: `dlqFunction`,
@@ -104,6 +110,9 @@ export class LambdaStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(30),
       environment: {
         QUEUE_URL: props.dlq.queueUrl,
+      },
+      currentVersionOptions: {
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
       },
     });
     fn.addEventSource(new SqsEventSource(props.dlq, { batchSize: 10 }));

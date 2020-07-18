@@ -9,7 +9,7 @@ export class DynamodbStack extends cdk.Stack {
     const ns = scope.node.tryGetContext('ns') || '';
     const tableName = scope.node.tryGetContext('tableName') || '';
 
-    this.table = new dynamodb.Table(this, `${tableName}Table${ns}`, {
+    this.table = new dynamodb.Table(this, `${ns}${tableName}Table`, {
       tableName,
       partitionKey: {
         name: 'id',
